@@ -27,23 +27,23 @@ app.get("/", function(req, res) {
 
 app.get("/build", function(req, res) {
 	// listens for request on /build route
-	console.log(req);
+	req.query.colors = [];
 	var css;
-	switch (req.type) {
+	switch (req.query.type) {
 		case "css":
-			css = buildCSS(req.colors);
+			css = buildCSS(req.query.colors);
 			break;
 		case "scss":
-			css = buildSCSS(req.colors);
+			css = buildSCSS(req.query.colors);
 			break;
 		case "sass":
-			css = buildSASS(req.colors);
+			css = buildSASS(req.query.colors);
 			break;
 		default:
-			css = buildCSS(req.colors);
+			css = buildCSS(req.query.colors);
 	}
 
-	res.setHeader("Content-disposition", "attachment; filename=colors." + req.type);
+	res.setHeader("Content-disposition", "attachment; filename=colors." + req.query.type);
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
 	res.write(css);

@@ -27,7 +27,7 @@ app.get("/", function(req, res) {
 
 app.get("/build", function(req, res) {
 	// listens for request on /build route
-
+	console.log(req);
 	var css;
 	switch (req.type) {
 		case "css":

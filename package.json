@@ -1,0 +1,19 @@
+{
+  "name": "pallypal-server",
+  "version": "1.0.0",
+  "description": "Take color scheme chosen in pallypal and compile and send a stylesheet back to user.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graysonhicks/pallypal-server.git"
+  },
+  "author": "grayson hicks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/graysonhicks/pallypal-server/issues"
+  },
+  "homepage": "https://github.com/graysonhicks/pallypal-server#readme"
+}

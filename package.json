@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/graysonhicks/pallypal-server/issues"
   },
-  "homepage": "https://github.com/graysonhicks/pallypal-server#readme"
+  "homepage": "https://github.com/graysonhicks/pallypal-server#readme",
+  "devDependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "request": "^2.81.0"
+  }
 }

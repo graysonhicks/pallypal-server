@@ -22,6 +22,7 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 // }
 app.get("/build", function(req, res) {
 	// listens for request on /build route
+	req.type = "css";
 	var css;
 	switch (req.type) {
 		case "css":

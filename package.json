@@ -17,6 +17,7 @@
 	},
 	"homepage": "https://github.com/graysonhicks/pallypal-server#readme",
 	"dependencies": {
+		"body-parser": "^1.17.2",
 		"cors": "^2.8.4",
 		"express": "^4.15.4",
 		"request": "^2.81.0"

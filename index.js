@@ -1,46 +1,52 @@
 var express = require("express");
 var request = require("request");
-var fs = require("fs");
+var bodyParser = require("body-parser");
 var app = express();
 var cors = require("cors");
 
+// parse application/json
+app.use(bodyParser.json());
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 //  req structure ?
 // {
 //     type: "css",
-//     colors: [
-//         {
-//             name: "Semantic Name",
-//             code: here will be hex or hsl or rbg depending on what they chose,
-//         },
-//         {
-//             name: "Semantic Name 2",
-//             code: here will be hex or hsl or rbg depending on what they chose,
-//         }
-//     ]
+// colors: [
+//     {
+//         name: "Semantic Name",
+//         code: here will be hex or hsl or rbg depending on what they chose,
+//     },
+//     {
+//         name: "Semantic Name 2",
+//         code: here will be hex or hsl or rbg depending on what they chose,
+//     }
+// ]
 // }
 
 app.get("/", function(req, res) {
 	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
 });
 
-app.get("/build", function(req, res) {
+app.post("/build", function(req, res) {
 	// listens for request on /build route
-	req.query.colors = [];
+	console.log(req.body);
+	var body = JSON.parse(req.body);
+	console.log(body);
+	var colors = body.colors;
+	var type = body.type;
 	var css;
-	switch (req.query.type) {
+	switch (type) {
 		case "css":
-			css = buildCSS(req.query.colors);
+			css = buildCSS(colorsJSON);
 			break;
 		case "scss":
-			css = buildSCSS(req.query.colors);
+			css = buildSCSS(colorsJSON);
 			break;
 		case "sass":
-			css = buildSASS(req.query.colors);
+			css = buildSASS(colorsJSON);
 			break;
 		default:
-			css = buildCSS(req.query.colors);
+			css = buildCSS(colorsJSON);
 	}
 
 	res.setHeader("Content-disposition", "attachment; filename=colors." + req.query.type);
@@ -51,7 +57,8 @@ app.get("/build", function(req, res) {
 });
 
 function buildCSS(colors) {
-	var text;
+	console.log(colors);
+	var text = "";
 	for (var i = 0; i < colors.length; i++) {
 		text += colors[i].name + ": " + colors[i].code;
 	}

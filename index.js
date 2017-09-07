@@ -20,6 +20,11 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 //         }
 //     ]
 // }
+
+app.get("/", function(req, res) {
+	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
+});
+
 app.get("/build", function(req, res) {
 	// listens for request on /build route
 	req.type = "css";

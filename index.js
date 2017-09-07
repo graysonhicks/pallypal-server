@@ -1,5 +1,6 @@
 var express = require("express");
 var request = require("request");
+var fs = require("fs");
 var app = express();
 var cors = require("cors");
 
@@ -22,39 +23,25 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 app.get("/build", function(req, res) {
 	// listens for request on /build route
 	var css;
-    var fileName;
 	switch (req.type) {
 		case "css":
-        function() {
-		    css = buildCSS(req.colors);
-            fileName = "/colors.css";
-		}
+			css = buildCSS(req.colors);
 			break;
 		case "scss":
-        function() {
-		    css = buildSCSS(req.colors);
-            fileName = "/colors.scss";
-		}
+			css = buildSCSS(req.colors);
 			break;
 		case "sass":
-        function() {
-		    css = buildSASS(req.colors);
-            fileName = "/colors.sass";
-		}
+			css = buildSASS(req.colors);
 			break;
 		default:
-        function(){
-            css = buildCSS(req.colors);
-            fileName = "/colors.css";
-        }
+			css = buildCSS(req.colors);
 	}
 
-
-    var stream = fs.createWriteStream(fileName);
-    stream.once('open', function(fd) {
-      stream.end(css);
-    });
-
+	res.setHeader("Content-disposition", "attachment; filename=colors." + req.type);
+	res.setHeader("Content-type", "text/css");
+	res.charset = "UTF-8";
+	res.write(css);
+	res.end();
 });
 
 function buildCSS(req) {

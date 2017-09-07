@@ -50,15 +50,19 @@ app.get("/build", function(req, res) {
 	res.end();
 });
 
-function buildCSS(req) {
-	return "I am a CSS file!";
+function buildCSS(colors) {
+	var text;
+	for (var i = 0; i < colors.length; i++) {
+		text += colors[i].name + ": " + colors[i].code;
+	}
+	return text;
 }
 
-function buildSCSS(req) {
+function buildSCSS(colors) {
 	return "I am an SCSS file!";
 }
 
-function buildSASS(req) {
+function buildSASS(colors) {
 	return "I am a SASS file!";
 }
 

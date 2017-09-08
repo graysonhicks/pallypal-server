@@ -33,8 +33,8 @@ app.get("/", function(req, res) {
 
 app.get("/build", function(req, res) {
 	// listens for request on /build route
-	var colors = res.query.colors;
-	var type = res.query.type;
+	var colors = req.query.colors;
+	var type = req.query.type;
 	var css;
 	switch (type) {
 		case "css":

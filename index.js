@@ -54,6 +54,7 @@ app.post("/build", function(req, res) {
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
 	res.write(css);
+	res.send();
 	res.end();
 });
 

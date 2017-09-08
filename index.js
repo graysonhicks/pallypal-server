@@ -4,6 +4,8 @@ var fs = require("fs");
 var app = express();
 var cors = require("cors");
 
+var appRoot = process.cwd();
+
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 //  req structure ?
@@ -43,19 +45,14 @@ app.get("/build", function(req, res) {
 		default:
 			css = buildCSS(colors);
 	}
-
-	res.setHeader("Content-disposition", "attachment; filename=colors." + type);
-	res.setHeader("Content-type", "text/css");
-	res.charset = "UTF-8";
-	res.write(css);
-	res.end();
+	console.log(css);
+	fs.writeFile(appRoot + "/tmp/colors." + type, css, function(err) {
+		res.download(appRoot + "/tmp/colors." + type, "colors." + type);
+	});
 });
-
-
 
 function buildCSS(colors) {
 	var text = "";
-	console.log(colors);
 	for (var i = 0; i < colors.length; i++) {
 		text += colors[i].name + ": " + colors[i].code + "\n";
 	}

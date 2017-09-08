@@ -5,10 +5,10 @@ var app = express();
 var cors = require("cors");
 
 // parse application/json
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+// app.use(bodyParser.json());
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 //  req structure ?

@@ -56,6 +56,7 @@ app.post("/build", function(req, res) {
 	res.charset = "UTF-8";
 	res.write(css);
 	res.download();
+	res.send();
 });
 
 function buildCSS(colors) {

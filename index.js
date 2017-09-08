@@ -51,37 +51,35 @@ app.get("/build", function(req, res) {
 	});
 });
 
+
+var text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
+
+var formatVariable(color){
+	return colors[i].name
+		.split(" ")
+		.join("-")
+		.toLowerCase();
+}
+
 function buildCSS(colors) {
-	var text = "";
 	for (var i = 0; i < colors.length; i++) {
-		var formattedVar = colors[i].name
-			.split(" ")
-			.join("-")
-			.toLowerCase();
-		text += "." + formattedVar + " { color: #" + colors[i].code + "}\n";
+		var formattedVar = formatVariable(colors[i].name);
+		text += "." + formattedVar + " { color: #" + colors[i].code + " }\n";
 	}
 	return text;
 }
 
 function buildSCSS(colors) {
-	var text = "";
 	for (var i = 0; i < colors.length; i++) {
-		var formattedVar = colors[i].name
-			.split(" ")
-			.join("-")
-			.toLowerCase();
+		var formattedVar = formatVariable(colors[i].name);
 		text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";
 	}
 	return text;
 }
 
 function buildSASS(colors) {
-	var text = "";
 	for (var i = 0; i < colors.length; i++) {
-		var formattedVar = colors[i].name
-			.split(" ")
-			.join("-")
-			.toLowerCase();
+		var formattedVar = formatVariable(colors[i].name);
 		text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n";
 	}
 	return text;

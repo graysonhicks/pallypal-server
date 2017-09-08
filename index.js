@@ -5,10 +5,10 @@ var app = express();
 var cors = require("cors");
 
 // parse application/json
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 //  req structure ?
@@ -32,27 +32,25 @@ app.get("/", function(req, res) {
 
 app.post("/build", function(req, res) {
 	// listens for request on /build route
-	console.log(req, "REQ");
-	var body = JSON.parse(req.body);
-	console.log(body);
+	var body = req.body;
 	var colors = body.colors;
 	var type = body.type;
 	var css;
 	switch (type) {
 		case "css":
-			css = buildCSS(colorsJSON);
+			css = buildCSS(colors);
 			break;
 		case "scss":
-			css = buildSCSS(colorsJSON);
+			css = buildSCSS(colors);
 			break;
 		case "sass":
-			css = buildSASS(colorsJSON);
+			css = buildSASS(colors);
 			break;
 		default:
-			css = buildCSS(colorsJSON);
+			css = buildCSS(colors);
 	}
 
-	res.setHeader("Content-disposition", "attachment; filename=colors." + req.query.type);
+	res.setHeader("Content-disposition", "attachment; filename=colors." + type);
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
 	res.write(css);
@@ -60,7 +58,6 @@ app.post("/build", function(req, res) {
 });
 
 function buildCSS(colors) {
-	console.log(colors);
 	var text = "";
 	for (var i = 0; i < colors.length; i++) {
 		text += colors[i].name + ": " + colors[i].code;

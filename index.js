@@ -54,7 +54,7 @@ app.get("/build", function(req, res) {
 var text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
 
 function formatVariable(color) {
-	return colors[i].name
+	return color
 		.split(" ")
 		.join("-")
 		.toLowerCase();

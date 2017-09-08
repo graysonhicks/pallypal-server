@@ -31,7 +31,7 @@ app.get("/", function(req, res) {
 	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
 });
 
-app.get("/build", function(req, res) {
+app.post("/build", function(req, res) {
 	// listens for request on /build route
 	var body = req.body;
 	var colors = body.colors;
@@ -55,7 +55,7 @@ app.get("/build", function(req, res) {
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
 	res.write(css);
-	res.end();
+	res.send();
 });
 
 function buildCSS(colors) {

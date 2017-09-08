@@ -5,6 +5,9 @@ var app = express();
 var cors = require("cors");
 
 // parse application/json
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
@@ -29,7 +32,7 @@ app.get("/", function(req, res) {
 
 app.post("/build", function(req, res) {
 	// listens for request on /build route
-	console.log(req.body, "REQ");
+	console.log(req, "REQ");
 	var body = JSON.parse(req.body);
 	console.log(body);
 	var colors = body.colors;

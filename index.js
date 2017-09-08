@@ -51,10 +51,9 @@ app.get("/build", function(req, res) {
 	});
 });
 
-
 var text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
 
-var formatVariable(color){
+function formatVariable(color) {
 	return colors[i].name
 		.split(" ")
 		.join("-")

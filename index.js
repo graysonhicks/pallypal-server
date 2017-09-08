@@ -1,15 +1,9 @@
 var express = require("express");
 var request = require("request");
-var bodyParser = require("body-parser");
 var fs = require("fs");
 var app = express();
 var cors = require("cors");
 
-// parse application/json
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
 app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 //  req structure ?
@@ -50,18 +44,18 @@ app.get("/build", function(req, res) {
 			css = buildCSS(colors);
 	}
 
-res.setHeader("Content-disposition", "attachment; filename=colors." + type);
-res.setHeader('Access-Control-Allow-Origin', '*');
-res.setHeader("Content-type", "text/css");
-res.charset = "UTF-8";
-res.write(css);
-res.end();
+	res.setHeader("Content-disposition", "attachment; filename=colors." + type);
+	res.setHeader("Content-type", "text/css");
+	res.charset = "UTF-8";
+	res.write(css);
+	res.end();
 });
 
 
 
 function buildCSS(colors) {
 	var text = "";
+	console.log(colors);
 	for (var i = 0; i < colors.length; i++) {
 		text += colors[i].name + ": " + colors[i].code + "\n";
 	}

@@ -29,7 +29,7 @@ app.get("/", function(req, res) {
 
 app.post("/build", function(req, res) {
 	// listens for request on /build route
-	console.log(req.body);
+	console.log(req.body, "REQ");
 	var body = JSON.parse(req.body);
 	console.log(body);
 	var colors = body.colors;

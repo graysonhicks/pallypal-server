@@ -51,10 +51,26 @@ app.post("/build", function(req, res) {
 			css = buildCSS(colors);
 	}
 
+fs.writeFile('colors' + .type, css, 'utf8', function (err) {
+  if (err) {
+    console.log('Some error occured - file either not saved or corrupted file saved.');
+  } else{
+    console.log('It\'s saved!');
+  }
+});
+
+});
+
+app.get("/build", function(req, res) {
+	// listens for request on /build route
+
+	var type = req.query.type;
+
 	res.setHeader("Content-disposition", "attachment; filename=colors." + type);
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
-	res.send(css);
+	res.write(css);
+	res.end();
 });
 
 function buildCSS(colors) {

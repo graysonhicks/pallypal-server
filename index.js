@@ -54,9 +54,7 @@ app.post("/build", function(req, res) {
 	res.setHeader("Content-disposition", "attachment; filename=colors." + type);
 	res.setHeader("Content-type", "text/css");
 	res.charset = "UTF-8";
-	res.write(css);
-	res.download();
-	res.send();
+	res.send(css);
 });
 
 function buildCSS(colors) {

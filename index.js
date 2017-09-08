@@ -61,7 +61,7 @@ app.post("/build", function(req, res) {
 function buildCSS(colors) {
 	var text = "";
 	for (var i = 0; i < colors.length; i++) {
-		text += colors[i].name + ": " + colors[i].code;
+		text += colors[i].name + ": " + colors[i].code + "\n";
 	}
 	return text;
 }

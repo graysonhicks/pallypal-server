@@ -54,17 +54,37 @@ app.get("/build", function(req, res) {
 function buildCSS(colors) {
 	var text = "";
 	for (var i = 0; i < colors.length; i++) {
-		text += colors[i].name + ": " + colors[i].code + "\n";
+		var formattedVar = colors[i].name
+			.split(" ")
+			.join("-")
+			.toLowerCase();
+		text += "." + formattedVar + " { color: #" + colors[i].code + "}\n";
 	}
 	return text;
 }
 
 function buildSCSS(colors) {
-	return "I am an SCSS file!";
+	var text = "";
+	for (var i = 0; i < colors.length; i++) {
+		var formattedVar = colors[i].name
+			.split(" ")
+			.join("-")
+			.toLowerCase();
+		text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";
+	}
+	return text;
 }
 
 function buildSASS(colors) {
-	return "I am a SASS file!";
+	var text = "";
+	for (var i = 0; i < colors.length; i++) {
+		var formattedVar = colors[i].name
+			.split(" ")
+			.join("-")
+			.toLowerCase();
+		text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n";
+	}
+	return text;
 }
 
 var port = process.env.PORT || 3000;

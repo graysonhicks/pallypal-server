@@ -1,6 +1,7 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
+var fs = require("fs");
 var app = express();
 var cors = require("cors");
 
@@ -30,7 +31,7 @@ app.get("/", function(req, res) {
 	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
 });
 
-app.post("/build", function(req, res) {
+app.get("/build", function(req, res) {
 	// listens for request on /build route
 	var body = req.body;
 	var colors = body.colors;

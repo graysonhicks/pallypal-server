@@ -30,7 +30,7 @@ app.get("/", function(req, res) {
 
 app.get("/build", function(req, res) {
 	// listens for request on /build route
-	var colors = req.query.colors;
+	var colors = req.query.colors.reverse();
 	var type = req.query.type;
 	var css;
 	text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
@@ -47,7 +47,7 @@ app.get("/build", function(req, res) {
 		default:
 			css = buildCSS(colors);
 	}
-	console.log(colors);
+
 	fs.writeFile(appRoot + "/tmp/colors." + type, css, function(err) {
 		res.download(appRoot + "/tmp/colors." + type, "colors." + type);
 	});
@@ -79,7 +79,7 @@ function buildSCSS(colors) {
 		var formattedVar = formatVariable(colors[i].name);
 
 			if(colors[i].is_current){
-				text += "// Main color selected in palette generator\n";
+				text += "/* Main color selected in palette generator */\n";
 				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n\n";
 			} else {
 				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";

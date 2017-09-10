@@ -63,7 +63,13 @@ function formatVariable(color) {
 function buildCSS(colors) {
 	for (var i = 0; i < colors.length; i++) {
 		var formattedVar = formatVariable(colors[i].name);
-		text += "." + formattedVar + " { color: #" + colors[i].code + " }\n";
+
+		if(colors[i].is_current){
+			text += "// Main color selected in palette generator\n";
+			text += "." + formattedVar + " { color: #" + colors[i].code + " }\n\n";
+		} else {
+			text += "." + formattedVar + " { color: #" + colors[i].code + " }\n";
+		}
 	}
 	return text;
 }
@@ -71,7 +77,15 @@ function buildCSS(colors) {
 function buildSCSS(colors) {
 	for (var i = 0; i < colors.length; i++) {
 		var formattedVar = formatVariable(colors[i].name);
-		text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";
+
+			if(colors[i].is_current){
+				text += "// Main color selected in palette generator\n";
+				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n\n";
+			} else {
+				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";
+			}
+
+
 	}
 	return text;
 }
@@ -79,7 +93,14 @@ function buildSCSS(colors) {
 function buildSASS(colors) {
 	for (var i = 0; i < colors.length; i++) {
 		var formattedVar = formatVariable(colors[i].name);
-		text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n";
+
+		if(colors[i].is_current){
+			text += "// Main color selected in palette generator\n";
+			text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n\n";
+		} else {
+			text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n";
+		}
+
 	}
 	return text;
 }

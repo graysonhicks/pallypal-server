@@ -23,6 +23,7 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 // ]
 // }
 var text = "";
+var mainColorComment = "";
 
 app.get("/", function(req, res) {
 	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
@@ -34,19 +35,9 @@ app.get("/build", function(req, res) {
 	var type = req.query.type;
 	var css;
 	text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
-	switch (type) {
-		case "css":
-			css = buildCSS(colors);
-			break;
-		case "scss":
-			css = buildSCSS(colors);
-			break;
-		case "sass":
-			css = buildSASS(colors);
-			break;
-		default:
-			css = buildCSS(colors);
-	}
+	mainColorComment = "/* Main color selected in palette generator */\n";
+
+	css = buildStyleSheet(colors, type);
 
 	fs.writeFile(appRoot + "/tmp/colors." + type, css, function(err) {
 		res.download(appRoot + "/tmp/colors." + type, "colors." + type);
@@ -60,50 +51,35 @@ function formatVariable(color) {
 		.toLowerCase();
 }
 
-function buildCSS(colors) {
+function buildStyleSheet(colors, type) {
 	for (var i = 0; i < colors.length; i++) {
 		var formattedVar = formatVariable(colors[i].name);
+		var formattedFullVarLine = "";
 
+		switch (type) {
+			case "css":
+				formattedFullVarLine += "." + formattedVar + " { color: #" + colors[i].code + " }";
+				break;
+			case "scss":
+				formattedFullVarLine += "$" + formattedVar + ": " + "#" + colors[i].code + ";";
+				break;
+			case "sass":
+				formattedFullVarLine += "$" + formattedVar + ": " + "#" + colors[i].code;
+				break;
+			default:
+
+		}
 		if(colors[i].is_current){
-			text += "// Main color selected in palette generator\n";
-			text += "." + formattedVar + " { color: #" + colors[i].code + " }\n\n";
+			text += mainColorComment;
+			text += formattedFullVarLine + "\n\n";
 		} else {
-			text += "." + formattedVar + " { color: #" + colors[i].code + " }\n";
+			text += formattedFullVarLine + "\n";
 		}
 	}
 	return text;
 }
 
-function buildSCSS(colors) {
-	for (var i = 0; i < colors.length; i++) {
-		var formattedVar = formatVariable(colors[i].name);
 
-			if(colors[i].is_current){
-				text += "/* Main color selected in palette generator */\n";
-				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n\n";
-			} else {
-				text += "$" + formattedVar + ": " + "#" + colors[i].code + ";\n";
-			}
-
-
-	}
-	return text;
-}
-
-function buildSASS(colors) {
-	for (var i = 0; i < colors.length; i++) {
-		var formattedVar = formatVariable(colors[i].name);
-
-		if(colors[i].is_current){
-			text += "// Main color selected in palette generator\n";
-			text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n\n";
-		} else {
-			text += "$" + formattedVar + ": " + "#" + colors[i].code + "\n";
-		}
-
-	}
-	return text;
-}
 
 var port = process.env.PORT || 3000;
 app.listen(port);

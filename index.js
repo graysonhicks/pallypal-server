@@ -22,6 +22,7 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 //     }
 // ]
 // }
+var text = "";
 
 app.get("/", function(req, res) {
 	res.send("Go to <a href='https://graysonhicks.github.io/pallypal'>Pallypal</a> to build your palette.");
@@ -32,6 +33,7 @@ app.get("/build", function(req, res) {
 	var colors = req.query.colors;
 	var type = req.query.type;
 	var css;
+	text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
 	switch (type) {
 		case "css":
 			css = buildCSS(colors);
@@ -45,13 +47,11 @@ app.get("/build", function(req, res) {
 		default:
 			css = buildCSS(colors);
 	}
-	console.log(css);
+	console.log(colors-list);
 	fs.writeFile(appRoot + "/tmp/colors." + type, css, function(err) {
 		res.download(appRoot + "/tmp/colors." + type, "colors." + type);
 	});
 });
-
-var text = "/* Made with PallyPal! https://graysonhicks.github.io/pallypal/ */ \n\n";
 
 function formatVariable(color) {
 	return color

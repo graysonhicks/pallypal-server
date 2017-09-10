@@ -47,7 +47,7 @@ app.get("/build", function(req, res) {
 		default:
 			css = buildCSS(colors);
 	}
-	console.log(colors-list);
+	console.log(colors);
 	fs.writeFile(appRoot + "/tmp/colors." + type, css, function(err) {
 		res.download(appRoot + "/tmp/colors." + type, "colors." + type);
 	});

@@ -69,6 +69,7 @@ function buildStyleSheet(colors, type) {
 			default:
 
 		}
+		
 		if(colors[i].is_current){
 			text += mainColorComment;
 			text += formattedFullVarLine + "\n\n";

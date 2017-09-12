@@ -58,19 +58,18 @@ function buildStyleSheet(colors, type) {
 
 		switch (type) {
 			case "css":
-				formattedFullVarLine += "." + formattedVar + " { color: #" + colors[i].code + " }";
+				formattedFullVarLine += ".color-" + formattedVar + " { color: #" + colors[i].code + " }";
 				break;
 			case "scss":
-				formattedFullVarLine += "$" + formattedVar + ": " + "#" + colors[i].code + ";";
+				formattedFullVarLine += "$color-" + formattedVar + ": " + "#" + colors[i].code + ";";
 				break;
 			case "sass":
-				formattedFullVarLine += "$" + formattedVar + ": " + "#" + colors[i].code;
+				formattedFullVarLine += "$color-" + formattedVar + ": " + "#" + colors[i].code;
 				break;
 			default:
-
 		}
-		
-		if(colors[i].is_current){
+
+		if (colors[i].is_current) {
 			text += mainColorComment;
 			text += formattedFullVarLine + "\n\n";
 		} else {
@@ -79,8 +78,6 @@ function buildStyleSheet(colors, type) {
 	}
 	return text;
 }
-
-
 
 var port = process.env.PORT || 3000;
 app.listen(port);
